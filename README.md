@@ -1,1 +1,0 @@
-# licykoc.github.io
