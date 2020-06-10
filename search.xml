@@ -24,8 +24,8 @@
     
     <entry>
       <title>本人刷题的网站</title>
-      <link href="/2020/06/08/st/"/>
-      <url>/2020/06/08/st/</url>
+      <link href="/2333/08/04/st/"/>
+      <url>/2333/08/04/st/</url>
       
         <content type="html"><![CDATA[<h1 id="color-PINK-洛谷"><a href="#color-PINK-洛谷" class="headerlink" title="$\color{PINK}{洛谷}$"></a><a href="https://www.luogu.com.cn/" target="_blank" rel="noopener">$\color{PINK}{洛谷}$</a></h1><h1 id="color-RED-宁波OJ"><a href="#color-RED-宁波OJ" class="headerlink" title="$\color{RED}{宁波OJ}$"></a><a href="https://oj.nbdp.net/" target="_blank" rel="noopener">$\color{RED}{宁波OJ}$</a></h1><h1 id="color-BLUE-一本通"><a href="#color-BLUE-一本通" class="headerlink" title="$\color{BLUE}{一本通}$"></a><a href="http://ybt.ssoier.cn:8088/" target="_blank" rel="noopener">$\color{BLUE}{一本通}$</a></h1><h1 id="color-GREEN-JZXX-OJ"><a href="#color-GREEN-JZXX-OJ" class="headerlink" title="$\color{GREEN}{JZXX OJ}$"></a><a href="http://oj.jzxx.net/" target="_blank" rel="noopener">$\color{GREEN}{JZXX OJ}$</a></h1><h1 id="color-CYAN-Libre-OJ"><a href="#color-CYAN-Libre-OJ" class="headerlink" title="$\color{CYAN}{Libre OJ}$"></a><a href="https://loj.ac/" target="_blank" rel="noopener">$\color{CYAN}{Libre OJ}$</a></h1><h1 id="color-YELLOW-WANGANG-OJ"><a href="#color-YELLOW-WANGANG-OJ" class="headerlink" title="$\color{YELLOW}{WANGANG OJ}$"></a><a href="http://112.16.216.176:680/" target="_blank" rel="noopener">$\color{YELLOW}{WANGANG OJ}$</a></h1>]]></content>
       
@@ -33,6 +33,25 @@
       <categories>
           
           <category> 选文 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>洛谷-题解 P5767 【[NOI1997]最优乘车】</title>
+      <link href="/2020/06/10/lgP5768/"/>
+      <url>/2020/06/10/lgP5768/</url>
+      
+        <content type="html"><![CDATA[<p><strong>没有P党，赶紧来交个题解<del>水估值</del></strong></p><p>这题是个很好的最短路练手题，当然其他题解也有用<code>bfs</code>做的，不过本蒟蒻刚学<code>Dijkstra</code>,就用<code>Dijkstra</code>来做此题。</p><p>题目多读几遍就学会了如何建图，至于具体的话其他题解讲的也很细，可以去康康）。</p><p>本题的坑点就是输入，但<code>Pascal</code>语言可以很$Easy$的解决，<code>eoln</code>函数就是判断当前输入是否有换行,使用<code>not eoln</code>函数就可以将一整行的数字输入啦！</p><pre><code class="hljs pascal">j:=<span class="hljs-number">0</span>; <span class="hljs-comment">//读入指针</span><span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> eoln <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span>   inc(j);  <span class="hljs-comment">//指针++</span>  <span class="hljs-keyword">read</span>(a[j]); <span class="hljs-comment">//读入</span><span class="hljs-keyword">end</span>;</code></pre><p>这样本题就没什么难点啦：</p><p>$Code:$</p><pre><code class="hljs pascal"><span class="hljs-keyword">uses</span> math;<span class="hljs-comment">//调用math库，包含了max,min等函数</span><span class="hljs-keyword">var</span>  i,j,k,n,m,l,t,g:longint;  v:<span class="hljs-keyword">array</span>[<span class="hljs-number">0</span>..<span class="hljs-number">10000</span>] <span class="hljs-keyword">of</span> boolean; <span class="hljs-comment">//Dijkstra算法中判断已加入的端点数组</span>  f:<span class="hljs-keyword">array</span>[<span class="hljs-number">0</span>..<span class="hljs-number">701</span>,<span class="hljs-number">0</span>..<span class="hljs-number">701</span>] <span class="hljs-keyword">of</span> longint; <span class="hljs-comment">//保存建图的数组</span>  dis,a:<span class="hljs-keyword">array</span>[<span class="hljs-number">0</span>..<span class="hljs-number">10000</span>] <span class="hljs-keyword">of</span> longint; <span class="hljs-comment">//记录最后答案的数组</span><span class="hljs-keyword">begin</span>  readln(m,n);  filldword(f,length(f),maxlongint);  <span class="hljs-comment">//这个函数就是将f数组全置为maxlongint即2147483647</span>  <span class="hljs-keyword">for</span> i:=<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> m <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span>    j:=<span class="hljs-number">0</span>;    <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> eoln <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span> inc(j); <span class="hljs-keyword">read</span>(a[j]); <span class="hljs-keyword">end</span>;<span class="hljs-keyword">for</span> k:=<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> j <span class="hljs-keyword">do</span>   <span class="hljs-keyword">for</span> t:=k+<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> j <span class="hljs-keyword">do</span>     f[a[k],a[t]]:=<span class="hljs-number">1</span>;readln;  <span class="hljs-keyword">end</span>;    <span class="hljs-comment">//以上为建图</span>    filldword(dis,length(dis),maxlongint);    <span class="hljs-comment">//接下来是Dijkstra算法的模板</span>  dis[<span class="hljs-number">1</span>]:=<span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> i:=<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> n-<span class="hljs-number">1</span> <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span>    t:=maxlongint;<span class="hljs-keyword">for</span> j:=<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> n <span class="hljs-keyword">do</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> v[j])<span class="hljs-keyword">and</span>(dis[j]&lt;t) <span class="hljs-keyword">then</span> <span class="hljs-keyword">begin</span> t:=dis[j]; g:=j; <span class="hljs-keyword">end</span>;v[g]:=true;<span class="hljs-keyword">for</span> j:=<span class="hljs-number">1</span> <span class="hljs-keyword">to</span> n <span class="hljs-keyword">do</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> v[j])<span class="hljs-keyword">and</span>(f[g,j]&gt;<span class="hljs-number">0</span>) <span class="hljs-keyword">then</span> dis[j]:=min(dis[j],dis[g]+f[g,j]);  <span class="hljs-keyword">end</span>;  <span class="hljs-keyword">if</span> dis[n]=maxlongint <span class="hljs-keyword">then</span> <span class="hljs-keyword">write</span>(<span class="hljs-string">'NO'</span>) <span class="hljs-comment">//特判</span>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">write</span>(dis[n]-<span class="hljs-number">1</span>);<span class="hljs-keyword">end</span>.</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 普及/提高- </category>
           
       </categories>
       
