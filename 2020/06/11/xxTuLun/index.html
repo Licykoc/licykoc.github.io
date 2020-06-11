@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Licykoc">
   <meta name="keywords" content="">
-  <title>宁波-题解 P4740 4.清理垃圾(Pascal) - Licykoc的博客</title>
+  <title>算法学习-图论最短路 - Licykoc的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -153,8 +153,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-08 20:39">
-      2020年6月8日 晚上
+    <time datetime="2020-06-11 21:01">
+      2020年6月11日 晚上
     </time>
   </div>
 
@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      230 字
+      523 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      7
        分钟
     </span>
   
@@ -213,26 +213,68 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="直接进入主题："><a href="#直接进入主题：" class="headerlink" title="直接进入主题："></a>直接进入主题：</h2><p>设<script type="math/tex">F[i,j]</script>=完成前<script type="math/tex">i</script>项任务，若小小桢桢花了j分钟，那么厅厅最少花<script type="math/tex">F[i,j]</script>分钟。</p>
-<p>有以下动态方程：<br><strong>$F[i,j]=min(f[i-1,j]+b[i],f[i-1,j-a[i]])$</strong></p>
-<h2 id="算法实现："><a href="#算法实现：" class="headerlink" title="算法实现："></a>算法实现：</h2><p>i从1枚举至n，j从0至5000<br>F数组一开始全设最大，特别的，F[0,0]=0<br>最后让i从0枚举5000：<br>  <code>for (int i=1;i&lt;=5000;++i) ans=min(ans,max(f[n,i],i))</code></p>
-<h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code class="hljs matlab">uses math;
-var
-  n,<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>,<span class="hljs-built_in">ans</span>:longint;
-  a,b:array[<span class="hljs-number">0.</span><span class="hljs-number">.100000</span>] of longint;
-  f:array[<span class="hljs-number">0.</span><span class="hljs-number">.1000</span>,<span class="hljs-number">0.</span><span class="hljs-number">.5000</span>] of integer;
-begin
-  read(n); <span class="hljs-built_in">ans</span>:=maxlongint;
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">1</span> to n do read(a[<span class="hljs-built_in">i</span>]); 
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">1</span> to n do read(b[<span class="hljs-built_in">i</span>]);
-  fillchar(f,sizeof(f),<span class="hljs-number">127</span>);
-  f[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]:=<span class="hljs-number">0</span>;
+              <h2 id="这一周学习了最短路算法，特写此篇来温故"><a href="#这一周学习了最短路算法，特写此篇来温故" class="headerlink" title="这一周学习了最短路算法，特写此篇来温故"></a>这一周学习了<strong>最短路</strong>算法，特写此篇来温故</h2><h3 id="在最短路算法中，常见的有-Floyd-Dijkstra-Bellman-Ford-spfa"><a href="#在最短路算法中，常见的有-Floyd-Dijkstra-Bellman-Ford-spfa" class="headerlink" title="在最短路算法中，常见的有$Floyd , Dijkstra, Bellman-Ford , spfa$"></a>在最短路算法中，常见的有$Floyd , Dijkstra, Bellman-Ford , spfa$</h3><p>注 ：$spfa$算法是$Bellman-Ford$算法的队列优化版，故细讲$spfa$，而弃讲$Bellman-Ford$</p>
+<h1 id="Floyd"><a href="#Floyd" class="headerlink" title="$Floyd$:"></a>$Floyd$:</h1><p>本算法适用于任意2点间的最短路径，可以处理有<code>负权值</code>的问题，但时间复杂度较高:$O(n^3)$</p>
+<p>核心代码只有$4$行：</p>
+<pre><code class="hljs matlab"><span class="hljs-keyword">for</span> k:=<span class="hljs-number">1</span> to n do 
   <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">1</span> to n do 
-    <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span>:=<span class="hljs-number">0</span> to <span class="hljs-number">5000</span> do 
-	  <span class="hljs-keyword">if</span> <span class="hljs-built_in">j</span>&lt;a[<span class="hljs-built_in">i</span>] then f[<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>]:=f[<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>]+b[<span class="hljs-built_in">i</span>] <span class="hljs-keyword">else</span> f[<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>]:=<span class="hljs-built_in">min</span>(f[<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>]+b[<span class="hljs-built_in">i</span>],f[<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>-a[<span class="hljs-built_in">i</span>]]);
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">0</span> to <span class="hljs-number">5000</span> do <span class="hljs-built_in">ans</span>:=<span class="hljs-built_in">min</span>(<span class="hljs-built_in">ans</span>,<span class="hljs-built_in">max</span>(f[n,<span class="hljs-built_in">i</span>],<span class="hljs-built_in">i</span>));
-  write(<span class="hljs-built_in">ans</span>);
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span>:=<span class="hljs-number">1</span> to n do 
+      f[<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>]:=<span class="hljs-built_in">min</span>(f[<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>],f[<span class="hljs-built_in">i</span>,k]+f[k,<span class="hljs-built_in">j</span>]);</code></pre>
+<p>之后$f$数组$(i,j)=$$i$点至$j$点的最短路</p>
+<h1 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="$Dijkstra$:"></a>$Dijkstra$:</h1><p>本算法可以解决单源最短路径，即一个起点，多个终点的最短路，不可处理<code>负权值</code>以及<code>负权回路</code>，时间复杂度$O(n^2)$</p>
+<p>算法简介：使用$dis$数组记录源点至$i$的最短路径</p>
+<p><a href="https://blog.csdn.net/lbperfect123/article/details/84281300" target="_blank" rel="noopener">算法详解</a></p>
+<p><a href="https://www.luogu.com.cn/problem/P5767" target="_blank" rel="noopener">例题传送门</a></p>
+<p><a href="https://licykoc.gitee.io/2020/06/10/lgP5768/" target="_blank" rel="noopener">例题详细题解</a></p>
+<h1 id="spfa"><a href="#spfa" class="headerlink" title="$spfa$"></a>$spfa$</h1><p>本算法为$Bellman-Ford$的队列优化版，适用于单源最短路径，可处理<code>负权值</code>以及<code>负权回路</code>，时间复杂度$O(m)$</p>
+<p>$Tips:spfa$算法可被毒瘤数据卡时间，使其退化为$O(nm)$</p>
+<p><a href="http://ybt.ssoier.cn:8088/problem_show.php?pid=1382" target="_blank" rel="noopener">例题传送门</a></p>
+<pre><code class="hljs gml"><span class="hljs-comment">/*</span>
+<span class="hljs-comment">裸的spfa</span>
+<span class="hljs-comment">*/</span>
+type node=record
+	  t,ne:longint;
+	  v:<span class="hljs-built_in">int64</span>;
+	<span class="hljs-keyword">end</span>;
+<span class="hljs-keyword">var</span>
+  t,n,m,i,l,r:longint;
+  <span class="hljs-symbol">x</span>,<span class="hljs-symbol">y</span>,z,k:<span class="hljs-built_in">int64</span>;
+  f:array[<span class="hljs-number">0.</span><span class="hljs-number">.2000000</span>] of node;
+  a,p:array[<span class="hljs-number">0.</span><span class="hljs-number">.200000</span>] of longint;
+  dis:array[<span class="hljs-number">0.</span><span class="hljs-number">.2000000</span>] of <span class="hljs-built_in">int64</span>;
+  v:array[<span class="hljs-number">0.</span><span class="hljs-number">.2000000</span>] of boolean;
+procedure add (<span class="hljs-symbol">x</span>,<span class="hljs-symbol">y</span>,z:longint);
+  <span class="hljs-keyword">begin</span>
+    inc(k);
+	f[k].t:=<span class="hljs-symbol">y</span>; f[k].ne:=p[<span class="hljs-symbol">x</span>]; f[k].v:=z;
+	p[<span class="hljs-symbol">x</span>]:=k; 
+  <span class="hljs-keyword">end</span>;
+<span class="hljs-comment">//链式前向星存储方式</span>
+<span class="hljs-keyword">begin</span>
+  read(n,m);
+  <span class="hljs-keyword">for</span> i:=<span class="hljs-number">1</span> to m <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span> read(<span class="hljs-symbol">x</span>,<span class="hljs-symbol">y</span>,z); add(<span class="hljs-symbol">x</span>,<span class="hljs-symbol">y</span>,z); add(<span class="hljs-symbol">y</span>,<span class="hljs-symbol">x</span>,z); <span class="hljs-keyword">end</span>;
+  fillqword(dis,length(dis),maxlongint); dis[<span class="hljs-number">1</span>]:=<span class="hljs-number">0</span>;
+  l:=<span class="hljs-number">1</span>; r:=<span class="hljs-number">1</span>; a[l]:=<span class="hljs-number">1</span>; v[<span class="hljs-number">1</span>]:=<span class="hljs-literal">true</span>;
+  
+  <span class="hljs-comment">//------------分割线 以下为spfa模板------------</span>
+  
+  <span class="hljs-keyword">while</span> l&lt;=r <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span>
+    t:=a[l]; i:=p[t];
+	<span class="hljs-keyword">while</span> i&gt;<span class="hljs-number">0</span> <span class="hljs-keyword">do</span> <span class="hljs-keyword">begin</span>
+	  k:=f[i].t;
+	  <span class="hljs-keyword">if</span> dis[k]&gt;dis[t]+f[i].v <span class="hljs-keyword">then</span> <span class="hljs-keyword">begin</span>
+	      dis[k]:=dis[t]+f[i].v;
+          <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> v[k] <span class="hljs-keyword">then</span> <span class="hljs-keyword">begin</span> r:=r+<span class="hljs-number">1</span>; a[r]:=k; v[k]:=<span class="hljs-literal">true</span>; <span class="hljs-keyword">end</span>;
+        <span class="hljs-keyword">end</span>;
+	  i:=f[i].ne;
+    <span class="hljs-keyword">end</span>;
+	v[t]:=<span class="hljs-literal">false</span>; l:=l+<span class="hljs-number">1</span>;
+  <span class="hljs-keyword">end</span>;
+  
+  write(dis[n]);
 <span class="hljs-keyword">end</span>.</code></pre>
+<h1 id="全最短路算法对比："><a href="#全最短路算法对比：" class="headerlink" title="全最短路算法对比："></a>全最短路算法对比：</h1><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/qplgsn06.png" srcset="/img/loading.gif" alt=""></p>
+<h1 id="color-Gray-The-quad-end"><a href="#color-Gray-The-quad-end" class="headerlink" title="$\color{Gray}{The\quad end}$"></a>$\color{Gray}{The\quad end}$</h1>
             </article>
             <hr>
             <div>
@@ -241,7 +283,7 @@ begin
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%99%AE%E5%8F%8A-%E6%8F%90%E9%AB%98/">普及+/提高</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a>
                     
                   </div>
                 
@@ -255,9 +297,9 @@ begin
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/10/lgP5768/">
+                      <a href="/2333/08/04/st/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">洛谷-题解 P5767 【[NOI1997]最优乘车】</span>
+                        <span class="hidden-mobile">本人刷题的网站</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -265,8 +307,8 @@ begin
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/08/nbP3835/">
-                        <span class="hidden-mobile">宁波-题解 P3835 4.沙盘游戏</span>
+                      <a href="/2020/06/10/lgP5768/">
+                        <span class="hidden-mobile">洛谷-题解 P5767 【[NOI1997]最优乘车】</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -464,7 +506,7 @@ begin
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "宁波-题解 P4740 4.清理垃圾(Pascal)&nbsp;",
+        "算法学习-图论最短路&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,

@@ -240,6 +240,42 @@ Knowledge (知识):K+N+O+W+L+E+D+G+E=11+14+15+23+12+5+4+7+5=9</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/11/xxTuLun/">算法学习-图论最短路</a>
+
+      <a href="/2020/06/11/xxTuLun/" class="index-excerpt">
+        
+        
+          
+        
+        <div>这一周学习了最短路算法，特写此篇来温故在最短路算法中，常见的有$Floyd , Dijkstra, Bellman-Ford , spfa$注 ：$spfa$算法是$Bellman-Ford$算法的队列优化版，故细讲$spfa$，而弃讲$Bellman-Ford$
+$Floyd$:本算法适用于任意2点间的最短路径，可以处理有负权值的问题，但时间复杂度较高:$O(n^3)$
+核心代码只有$4$行：
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">算法学习</a>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/06/10/lgP5768/">洛谷-题解 P5767 【[NOI1997]最优乘车】</a>
 
       <a href="/2020/06/10/lgP5768/" class="index-excerpt">
@@ -483,45 +519,6 @@ for j:=1 to length(s) do
   if s[j] in ['0'..'9'] then z:=z+s[j]//类似最长平台的算法
 	 else begin
 	  if z='' then continue; /</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-06-07
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%99%AE%E5%8F%8A/">普及-</a>
-            
-          </div>
-        
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/06/07/lgP6581/">洛谷-题解 P6581 【远大目标】</a>
-
-      <a href="/2020/06/07/lgP6581/" class="index-excerpt">
-        
-        
-          
-        
-        <div>发现没人用Python，赶紧来水一发
-题意：对于每一个$n(1 \le n \le 2^{63}-1)$,输出$n*2-1$
-如果$n \le 0$时，输出$0$
-分析：最大的$n$已经到了$2^{63}-1$,普通的long long会爆，用unsigned long long即可
-但本蒟蒻过于懒蛋，使用”高精度杀手Python“来切此题:
-代码：n = int(input())
-if (n&l</div>
       </a>
 
       <div class="index-btm post-metas">

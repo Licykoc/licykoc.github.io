@@ -17,19 +17,10 @@
   <meta name="description" content="">
   <meta name="author" content="Licykoc">
   <meta name="keywords" content="">
-  <title>宁波-题解 P4740 4.清理垃圾(Pascal) - Licykoc的博客</title>
+  <title>分类 - 算法学习 - Licykoc的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
-  
-
-  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -52,7 +43,7 @@
 
 
 <body>
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -150,48 +141,6 @@
             </span>
 
             
-              
-  <div class="mt-3 post-meta">
-    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-08 20:39">
-      2020年6月8日 晚上
-    </time>
-  </div>
-
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      230 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      3
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
-
-            
           </div>
 
           
@@ -202,133 +151,38 @@
 
   <main>
     
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="list-group">
+  <p class="h4">共计 1 篇文章</p>
+  <hr>
+  
+    
       
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <div class="post-content mx-auto" id="post">
-            
-            <article class="markdown-body">
-              <h2 id="直接进入主题："><a href="#直接进入主题：" class="headerlink" title="直接进入主题："></a>直接进入主题：</h2><p>设<script type="math/tex">F[i,j]</script>=完成前<script type="math/tex">i</script>项任务，若小小桢桢花了j分钟，那么厅厅最少花<script type="math/tex">F[i,j]</script>分钟。</p>
-<p>有以下动态方程：<br><strong>$F[i,j]=min(f[i-1,j]+b[i],f[i-1,j-a[i]])$</strong></p>
-<h2 id="算法实现："><a href="#算法实现：" class="headerlink" title="算法实现："></a>算法实现：</h2><p>i从1枚举至n，j从0至5000<br>F数组一开始全设最大，特别的，F[0,0]=0<br>最后让i从0枚举5000：<br>  <code>for (int i=1;i&lt;=5000;++i) ans=min(ans,max(f[n,i],i))</code></p>
-<h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code class="hljs matlab">uses math;
-var
-  n,<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>,<span class="hljs-built_in">ans</span>:longint;
-  a,b:array[<span class="hljs-number">0.</span><span class="hljs-number">.100000</span>] of longint;
-  f:array[<span class="hljs-number">0.</span><span class="hljs-number">.1000</span>,<span class="hljs-number">0.</span><span class="hljs-number">.5000</span>] of integer;
-begin
-  read(n); <span class="hljs-built_in">ans</span>:=maxlongint;
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">1</span> to n do read(a[<span class="hljs-built_in">i</span>]); 
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">1</span> to n do read(b[<span class="hljs-built_in">i</span>]);
-  fillchar(f,sizeof(f),<span class="hljs-number">127</span>);
-  f[<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]:=<span class="hljs-number">0</span>;
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">1</span> to n do 
-    <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span>:=<span class="hljs-number">0</span> to <span class="hljs-number">5000</span> do 
-	  <span class="hljs-keyword">if</span> <span class="hljs-built_in">j</span>&lt;a[<span class="hljs-built_in">i</span>] then f[<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>]:=f[<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>]+b[<span class="hljs-built_in">i</span>] <span class="hljs-keyword">else</span> f[<span class="hljs-built_in">i</span>,<span class="hljs-built_in">j</span>]:=<span class="hljs-built_in">min</span>(f[<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>]+b[<span class="hljs-built_in">i</span>],f[<span class="hljs-built_in">i</span><span class="hljs-number">-1</span>,<span class="hljs-built_in">j</span>-a[<span class="hljs-built_in">i</span>]]);
-  <span class="hljs-keyword">for</span> <span class="hljs-built_in">i</span>:=<span class="hljs-number">0</span> to <span class="hljs-number">5000</span> do <span class="hljs-built_in">ans</span>:=<span class="hljs-built_in">min</span>(<span class="hljs-built_in">ans</span>,<span class="hljs-built_in">max</span>(f[n,<span class="hljs-built_in">i</span>],<span class="hljs-built_in">i</span>));
-  write(<span class="hljs-built_in">ans</span>);
-<span class="hljs-keyword">end</span>.</code></pre>
-            </article>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E6%99%AE%E5%8F%8A-%E6%8F%90%E9%AB%98/">普及+/提高</a>
-                    
-                  </div>
-                
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <div class="post-prev col-6">
-                    
-                    
-                      <a href="/2020/06/10/lgP5768/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">洛谷-题解 P5767 【[NOI1997]最优乘车】</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </div>
-                  <div class="post-next col-6">
-                    
-                    
-                      <a href="/2020/06/08/nbP3835/">
-                        <span class="hidden-mobile">宁波-题解 P3835 4.沙盘游戏</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </div>
-                </div>
-              
-            </div>
-
-            
-              <!-- Comments -->
-              <div class="comments" id="comments">
-                
-                
-  <div id="vcomments"></div>
-  <script type="text/javascript">
-    function loadValine() {
-      addScript('https://cdn.staticfile.org/valine/1.4.14/Valine.min.js', function () {
-        new Valine({
-          el: "#vcomments",
-          app_id: "6UtwfX4ikbbpoeRzEfMYWiU8-gzGzoHsz",
-          app_key: "UVvqSgAEceTTKBEcAAjuBLae",
-          placeholder: "说点什么🙃",
-          path: window.location.pathname,
-          avatar: "retro",
-          meta: ["nick","mail","link"],
-          pageSize: "10",
-          lang: "zh-CN",
-          highlight: false,
-          recordIP: false,
-          serverURLs: "https://6utwfx4i.lc-cn-n1-shared.com",
-        });
-      });
-    }
-    createObserver(loadValine, 'vcomments');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://valine.js.org" target="_blank" rel="nofollow noopener noopener">comments
-      powered by Valine.</a></noscript>
-
-
-              </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
+      <p class="h5">2020</p>
     
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
+    <a href="/2020/06/11/xxTuLun/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">算法学习-图论最短路</span>
+      <span style="float: right;">06-11</span>
+    </a>
+  
 </div>
 
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
 
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=1 height=1 src="//music.163.com/outchain/player?type=2&id=477982&auto=1&height=66"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
   </main>
 
@@ -432,31 +286,6 @@ begin
 
 
 
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: 'article.markdown-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
-      });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -464,7 +293,7 @@ begin
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "宁波-题解 P4740 4.清理垃圾(Pascal)&nbsp;",
+        "分类 - 算法学习&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 80,
@@ -478,21 +307,6 @@ begin
   </script>
 
 
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
 
 
 
@@ -508,62 +322,9 @@ begin
 
 
 
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
 
 
 
-
-
-  
-
-  
-    <!-- MathJax -->
-    <script>
-      MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']]
-        },
-        options: {
-          renderActions: {
-            findScript: [10, doc => {
-              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                const display = !!node.type.match(/; *mode=display/);
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                const text = document.createTextNode('');
-                node.parentNode.replaceChild(text, node);
-                math.start = { node: text, delim: '', n: 0 };
-                math.end = { node: text, delim: '', n: 0 };
-                doc.math.push(math);
-              });
-            }, '', false],
-            insertedScript: [200, () => {
-              document.querySelectorAll('mjx-container').forEach(node => {
-                let target = node.parentNode;
-                if (target.nodeName.toLowerCase() === 'li') {
-                  target.parentNode.classList.add('has-jax');
-                }
-              });
-            }, '', false]
-          }
-        }
-      };
-    </script>
-
-    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
-
-  
 
 
 
